@@ -16,7 +16,7 @@ use DB;
 use Carbon\Carbon; // Control de fechas
 use Response;
 use Illuminate\Support\Collection;
-
+//aa
 class VentaController extends Controller
 {
     public function __construct()
