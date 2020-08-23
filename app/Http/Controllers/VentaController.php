@@ -93,7 +93,7 @@ class VentaController extends Controller
             $precio_venta = $request->get('precio_venta');
 
             $cont = 0;
-
+//cambio
             while ($cont<count($idarticulo)) {
                 $detalle=new DetalleVenta();
                 $detalle->idventa=$venta->idventa;
