@@ -50,14 +50,23 @@ class VentaController extends Controller
     public function create()
     {
         $personas=DB::table('persona')->where('tipo_persona','=','Cliente')->get();
-        $articulos=DB::table('articulo as art')
-        	->join('detalle_ingreso as di','art.idarticulo','=','di.idarticulo')//esto se asegura que solo podamos vender productos que han pasado por un ingreso primero
-            ->select(DB::raw('CONCAT(art.codigo," ",art.nombre) as articulo'), 'art.idarticulo','art.stock',DB::raw('avg(di.precio_venta) as precio_promedio'))//se establece el precio promedio de un articulo a partir de el precio del detalle de venta
+            //$articulos=DB::table('articulo as art')
+            //->join('detalle_ingreso as di','art.idarticulo','=','di.idarticulo')//esto se asegura que solo podamos vender productos que han pasado por un ingreso primero
+            //->select(DB::raw('CONCAT(art.codigo," ",art.nombre) as articulo'), 'art.idarticulo','art.stock',DB::raw('avg(di.precio_venta) as precio_promedio'))//se establece el precio promedio de un articulo a partir de el precio del detalle de venta
+            //->where('art.estado','=','Activo')
+            //->where('art.stock','>','0')
+            //->groupBy('articulo','art.idarticulo','art.stock')
+            //->get();
+
+            $articulos = DB::table('articulo as art')//para mostrar ultimo precio y no el promedio
+            ->select(DB::raw('CONCAT(art.codigo, " ",art.nombre) as articulo'), 'art.idarticulo','art.stock')
             ->where('art.estado','=','Activo')
-            ->where('art.stock','>','0')
-            ->groupBy('articulo','art.idarticulo','art.stock')
+            ->where('art.stock', '>','0')
+            //->orderBy('di.iddetalle_ingreso','DESC')
+            //->limit(1)
             ->get();
 
+            ///dd($articulos);
         return view("ventas.venta.create",["personas"=>$personas,"articulos"=>$articulos]);
         /*$articulos = DB::table('articulo as art')//para mostrar ultimo precio y no el promedio
             ->join('detalle_ingreso as di', 'art.idarticulo', '=', 'di.idarticulo')

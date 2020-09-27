@@ -58,7 +58,7 @@
             <label>Articulo</label>
             <select name="pidarticulo" id="pidarticulo" class="form-control selectpicker" data-live-search="true">
             @foreach($articulos as $articulo)
-            <option value="{{$articulo->idarticulo}}_{{$articulo->stock}}_{{$articulo->precio_promedio}}">{{$articulo->articulo}}</option>
+            <option value="{{$articulo->idarticulo}}_{{$articulo->stock}}">{{$articulo->articulo}}</option>
             @endforeach
             </select>
             </div>
